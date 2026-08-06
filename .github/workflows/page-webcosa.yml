@@ -45,6 +45,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          # `master` EXPLICITEMENT, et c'est tout l'intérêt de la ligne.
+          # Sur un évènement `workflow_run`, la révision par défaut est
+          # celle qui a DÉCLENCHÉ Uptime CI — donc l'état du dépôt AVANT
+          # que celui-ci n'écrive sa mesure dans `history/`. La page se
+          # serait construite sur les chiffres du cycle précédent, à
+          # chaque fois, sans que rien ne le signale : elle aurait
+          # simplement affiché une heure de mesure vieille de cinq
+          # minutes de plus que la réalité.
+          ref: master
 
       - uses: actions/setup-node@v4
         with:

@@ -404,7 +404,7 @@ body{
   <section class="bandeau">
     <h1>${titre}</h1>
     <p class="vivant"><span class="point" aria-hidden></span>
-      Vérifié toutes les 5 minutes · dernière mesure à ${new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris" }).format(DERNIERE)}</p>
+      Dernière mesure <time id="fraicheur" datetime="${DERNIERE.toISOString()}">à ${new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris" }).format(DERNIERE)}</time></p>
   </section>
 
   <section class="services">
@@ -416,6 +416,44 @@ body{
     <span>Hébergé hors de notre infrastructure — cette page reste debout si Webcosa tombe.</span>
   </footer>
 </main>
+
+<script>
+/* La fraîcheur en clair — « il y a 4 minutes » plutôt qu'une heure que le
+   lecteur doit soustraire lui-même.
+
+   Elle est calculée CHEZ LE VISITEUR, et c'est le seul moyen qu'elle
+   reste vraie : la page est un fichier statique servi par un CDN, donc
+   une durée écrite à la construction vieillit avec elle. L'horodatage
+   absolu est écrit dans le HTML et reste affiché si le script ne tourne
+   pas — on ne perd rien, on gagne juste la lecture directe.
+
+   Et rien ici ne PROMET une cadence. Le cron d'Upptime demande une mesure
+   toutes les cinq minutes, mais l'ordonnanceur de GitHub est « au mieux »
+   et peut prendre des heures à démarrer sur un dépôt neuf. Afficher
+   « vérifié toutes les 5 minutes » serait donc une affirmation que la
+   page ne peut pas tenir — sur une page de statut, l'écart entre ce qui
+   est promis et ce qui est fait est précisément ce qui la discrédite.
+   Le chiffre affiché, lui, est mesuré et se corrige tout seul. */
+(function () {
+  var t = document.getElementById("fraicheur");
+  if (!t) return;
+  var quand = new Date(t.getAttribute("datetime"));
+  if (isNaN(quand)) return;
+
+  function ecrire() {
+    var min = Math.round((Date.now() - quand) / 60000);
+    t.textContent =
+      min < 1 ? "à l'instant"
+      : min === 1 ? "il y a 1 minute"
+      : min < 60 ? "il y a " + min + " minutes"
+      : min < 120 ? "il y a 1 heure"
+      : min < 1440 ? "il y a " + Math.round(min / 60) + " heures"
+      : "il y a plus d'un jour";
+  }
+  ecrire();
+  setInterval(ecrire, 30000);
+})();
+</script>
 
 </body>
 </html>
