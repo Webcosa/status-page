@@ -271,6 +271,109 @@ const titre = tousEnLigne
     ? "Une <em>panne</em> est en cours"
     : "Un service est <em>perturbé</em>";
 
+
+/* ── Les incidents ───────────────────────────────────────────────────── */
+
+/**
+ * Upptime ouvre une issue GitHub quand un service tombe, et la ferme quand
+ * il revient. C'est un journal d'incidents complet, horodaté aux deux
+ * bouts, qui existait déjà et que la page n'affichait pas.
+ *
+ * Toutes les pages de statut sérieuses ont cette section, et pour une
+ * raison qui n'est pas décorative : quelqu'un qui arrive après coup ne
+ * veut pas savoir si ça marche MAINTENANT — il le voit — mais si la panne
+ * qu'il a subie il y a deux heures était bien la vôtre.
+ *
+ * Le rapprochement se fait sur l'étiquette de slug, pas sur le titre.
+ * Upptime pose deux étiquettes : "status" et le slug du service. Un
+ * incident dont le slug ne correspond à aucun service surveillé
+ * aujourd'hui est écarté — c'est ce qui empêche les exemples livrés avec
+ * le gabarit de figurer parmi les pannes de Webcosa.
+ */
+async function lireIncidents(slugsConnus) {
+  const jeton = process.env.GITHUB_TOKEN;
+  const url =
+    "https://api.github.com/repos/Webcosa/status-page/issues" +
+    "?state=all&labels=status&per_page=30&sort=created&direction=desc";
+
+  try {
+    const r = await fetch(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        ...(jeton ? { Authorization: "Bearer " + jeton } : {}),
+      },
+    });
+    if (!r.ok) throw new Error(String(r.status));
+    const issues = await r.json();
+    if (!Array.isArray(issues)) return [];
+
+    return issues
+      .map((i) => {
+        const etiquettes = (i.labels ?? []).map((l) => l.name ?? l);
+        const slug = etiquettes.find((n) => n !== "status");
+        return {
+          slug,
+          /* Le titre d'Upptime est "🛑 <Nom> is down". On garde le nom du
+             service tel qu'il est configuré aujourd'hui plutôt que celui
+             figé dans le titre : un service renommé depuis afficherait
+             sinon deux noms pour la même chose. */
+          nom: slugsConnus.get(slug) ?? String(i.title ?? "").replace(/^\W+|\s+is down$/g, ""),
+          ouvert: i.created_at,
+          ferme: i.closed_at,
+          lien: i.html_url,
+        };
+      })
+      .filter((i) => i.slug && slugsConnus.has(i.slug));
+  } catch {
+    /* Le réseau n'est pas une raison de ne pas publier la page. On rend
+       null — distinct du tableau vide, qui signifie "aucune panne" — pour
+       que le rendu puisse taire la section au lieu d'affirmer à tort qu'il
+       ne s'est rien passé. */
+    return null;
+  }
+}
+
+/** Une durée d'interruption, écrite comme on la dirait. */
+function duree(depuis, jusqu) {
+  const min = Math.max(1, Math.round((new Date(jusqu) - new Date(depuis)) / 60000));
+  if (min < 60) return min + " minutes";
+  const h = Math.floor(min / 60);
+  const reste = min % 60;
+  return reste ? h + " h " + reste : h + (h > 1 ? " heures" : " heure");
+}
+
+const dateHeureFr = (d) =>
+  new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric", month: "long", hour: "2-digit", minute: "2-digit",
+    timeZone: "Europe/Paris",
+  }).format(new Date(d));
+
+const INCIDENTS = await lireIncidents(
+  new Map(resume.map((s) => [s.slug, s.name])),
+);
+
+function sectionIncidents() {
+  if (INCIDENTS === null) return "";
+
+  const corps = INCIDENTS.length
+    ? INCIDENTS.map(
+        (i) => '<article class="incident' + (i.ferme ? "" : " incident--ouvert") + '">' +
+          '<h3>' + echapper(i.nom) + " — " +
+          (i.ferme ? "interruption résolue" : "interruption en cours") + "</h3>" +
+          '<p class="incident-quand">' + echapper(dateHeureFr(i.ouvert)) +
+          (i.ferme
+            ? " → " + echapper(dateHeureFr(i.ferme)) +
+              ' <span class="incident-duree">' + echapper(duree(i.ouvert, i.ferme)) + "</span>"
+            : "") +
+          "</p></article>",
+      ).join("")
+    : '<p class="rien">Aucune interruption depuis le début de la surveillance, le ' +
+      echapper(dateFr(DEBUT)) + ".</p>";
+
+  return '<section class="famille"><h2 class="famille-titre">Incidents</h2>' +
+    '<div class="incidents">' + corps + "</div></section>";
+}
+
 function carte(s) {
   /* Le taux se colore sur l'état COURANT, pas sur lui-même. Un service
      tombé il y a dix minutes affiche encore 99,9 % — le peindre en vert
@@ -443,6 +546,18 @@ body{
 /* ── Cartes ──────────────────────────────────────────────── */
 .services{display:flex;flex-direction:column;gap:12px}
 .famille{margin-bottom:30px}
+.incidents{background:var(--carte);border:1px solid var(--filet);
+  border-radius:14px;padding:6px 20px}
+.incident{padding:14px 0;border-top:1px solid var(--filet)}
+.incident:first-child{border-top:0}
+.incident h3{font-family:var(--titre);font-weight:600;font-size:14.5px;
+  letter-spacing:-.02em;font-variation-settings:"opsz" 20;margin:0 0 3px;
+  line-height:1.4}
+.incident--ouvert h3{color:var(--bas)}
+.incident-quand{margin:0;font-size:12.5px;color:var(--texte-3);
+  font-variant-numeric:tabular-nums}
+.incident-duree{color:var(--texte-2);font-weight:600}
+.rien{margin:0;padding:16px 0;font-size:13.5px;color:var(--texte-3)}
 .famille-titre{font-family:var(--corps);font-size:11.5px;font-weight:600;
   letter-spacing:.07em;text-transform:uppercase;color:var(--texte-3);
   margin:0 0 11px 3px}
@@ -598,6 +713,8 @@ body{
     </section>`,
     )
     .join("\n")}
+
+  ${sectionIncidents()}
 
   <footer class="pied">
     <a class="propulse" href="https://www.webcosa.com"

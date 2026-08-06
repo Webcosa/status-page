@@ -85,6 +85,14 @@ jobs:
       # Rien à installer, donc rien qui puisse casser à l'installation.
       - name: Construire la page
         run: node scripts/page.mjs
+        env:
+          # Pour lire le journal des incidents (les issues ouvertes puis
+          # fermées par Upptime). Non authentifiée, l'API de GitHub plafonne
+          # à 60 appels par heure et par IP — or les exécuteurs partagés
+          # sortent par des adresses communes, donc ce plafond est parfois
+          # déjà consommé par d'autres dépôts. Le jeton natif suffit : il ne
+          # sert ici qu'à lire des issues publiques.
+          GITHUB_TOKEN: ${{ github.token }}
 
       - uses: peaceiris/actions-gh-pages@v4
         with:
