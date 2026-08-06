@@ -97,6 +97,44 @@ const enDonnees = (fichier) =>
  */
 const MOT_ETAT = { up: "Opérationnel", degraded: "Dégradé", down: "Indisponible" };
 
+/**
+ * Les familles de services, dans l'ordre d'affichage.
+ *
+ * Le classement se fait sur l'URL, PAS sur le nom ni sur le slug. Les
+ * deux derniers sont dérivés du libellé par Upptime : renommer « Base de
+ * données » en « Base » changerait le slug et ferait silencieusement
+ * tomber la ligne dans le mauvais groupe — ou dans aucun. L'URL, elle,
+ * est écrite à la main dans .upptimerc.yml et ne bouge que si le service
+ * bouge vraiment.
+ *
+ * Ce qui ne correspond à rien atterrit dans un dernier groupe plutôt que
+ * de disparaître : une famille mal écrite doit se voir, pas escamoter un
+ * service de la page.
+ */
+const GROUPES = [
+  {
+    titre: "La plateforme",
+    dedans: (url) =>
+      url.includes("/api/sante") || /^https:\/\/cms\.webcosa\.com\/?$/.test(url),
+  },
+  {
+    titre: "Nos sites",
+    dedans: (url) => /webcosa\.com/.test(url),
+  },
+];
+
+function grouper(services) {
+  const restants = [...services];
+  const groupes = GROUPES.map((g) => {
+    const pris = restants.filter((s) => g.dedans(s.url));
+    pris.forEach((s) => restants.splice(restants.indexOf(s), 1));
+    return { titre: g.titre, services: pris };
+  }).filter((g) => g.services.length);
+
+  if (restants.length) groupes.push({ titre: "Autres", services: restants });
+  return groupes;
+}
+
 /* ── Lecture ─────────────────────────────────────────────────────────── */
 
 const resume = JSON.parse(
@@ -234,7 +272,7 @@ function carte(s) {
         <div class="carte-titre">
           <span class="pastille pastille--${s.status === "up" ? "haut" : "bas"}" aria-hidden></span>
           <div>
-            <h2>${echapper(s.name)}</h2>
+            <h3>${echapper(s.name)}</h3>
             <a class="lien-service" href="${echapper(s.url)}" rel="noreferrer">${echapper(s.url.replace(/^https?:\/\//, ""))}</a>
           </div>
         </div>
@@ -382,7 +420,11 @@ body{
 @media (prefers-reduced-motion:reduce){.point{animation:none}}
 
 /* ── Cartes ──────────────────────────────────────────────── */
-.services{display:flex;flex-direction:column;gap:12px;padding-bottom:8px}
+.services{display:flex;flex-direction:column;gap:12px}
+.famille{margin-bottom:30px}
+.famille-titre{font-family:var(--corps);font-size:11.5px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--texte-3);
+  margin:0 0 11px 3px}
 .carte{background:var(--carte);border:1px solid var(--filet);
   border-radius:14px;padding:18px 20px 15px}
 .carte-tete{display:flex;align-items:flex-start;justify-content:space-between;
@@ -391,7 +433,7 @@ body{
 .pastille{width:8px;height:8px;border-radius:999px;margin-top:8px;flex:none}
 .pastille--haut{background:var(--haut)}
 .pastille--bas{background:var(--bas)}
-.carte h2{font-family:var(--titre);font-weight:600;font-size:16px;
+.carte h3{font-family:var(--titre);font-weight:600;font-size:16px;
   letter-spacing:-.028em;font-variation-settings:"opsz" 24;margin:0;
   line-height:1.35}
 .lien-service{color:var(--texte-3);text-decoration:none;font-size:12.5px;
@@ -527,9 +569,14 @@ body{
       Dernière mesure <time id="fraicheur" datetime="${DERNIERE.toISOString()}">à ${new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Paris" }).format(DERNIERE)}</time></p>
   </section>
 
-  <section class="services">
-    ${resume.map(carte).join("\n")}
-  </section>
+  ${grouper(resume)
+    .map(
+      (g) => `<section class="famille">
+      <h2 class="famille-titre">${echapper(g.titre)}</h2>
+      <div class="services">${g.services.map(carte).join("\n")}</div>
+    </section>`,
+    )
+    .join("\n")}
 
   <footer class="pied">
     <a class="propulse" href="https://www.webcosa.com"

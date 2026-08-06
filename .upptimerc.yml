@@ -3,14 +3,26 @@ owner: webcosa # Mettez votre pseudo GitHub ici
 repo: status-page # Mettez le nom de votre dépôt GitHub ici (ex: status-page)
 
 sites:
-  - name: Webcosa Website
-    url: https://www.webcosa.com
-  - name: Webcosa Dev
-    url: https://dev.webcosa.com
-  - name: Webcosa Store
-    url: https://store.webcosa.com
-  - name: Webcosa CMS
+  # ── La plateforme ────────────────────────────────────────────────────
+  # Les trois dernières interrogent /api/sante, qui EXERCE la dépendance
+  # au lieu de constater que Vercel a servi du HTML. Sans elles, Supabase
+  # pouvait être à terre pendant que cette page affichait « Opérationnel ».
+  - name: Espace client
     url: https://cms.webcosa.com
+  - name: Base de données
+    url: https://cms.webcosa.com/api/sante?c=base
+  - name: Connexion
+    url: https://cms.webcosa.com/api/sante?c=connexion
+  - name: Rendu des sites
+    url: https://cms.webcosa.com/api/sante?c=rendu
+
+  # ── Nos sites ────────────────────────────────────────────────────────
+  - name: Site vitrine
+    url: https://www.webcosa.com
+  - name: Documentation
+    url: https://dev.webcosa.com
+  - name: Store
+    url: https://store.webcosa.com
 
 status-website:
   cname: status.webcosa.com
