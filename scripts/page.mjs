@@ -95,6 +95,27 @@ const enDonnees = (fichier) =>
  * et « Opérationnel » se lit sans être interprété — « 100 % » ne dit pas
  * si le service répond à cette seconde.
  */
+/**
+ * L'hôte seul, jamais le chemin.
+ *
+ * Les sondes de santé sont interrogées à des adresses comme
+ * /api/sante?c=base : les afficher telles quelles mettait une chaîne de
+ * requête sous un nom de service, ce qui ne renseigne personne et fait
+ * ressembler la page à une console de supervision.
+ *
+ * Voir trois fois « cms.webcosa.com » sous « Base de données »,
+ * « Connexion » et « Rendu des sites » n'est pas une redondance : ça dit
+ * que ces trois-là dépendent du même service, ce qui est vrai et utile
+ * quand ils tombent ensemble.
+ */
+const hoteDe = (url) => {
+  try {
+    return new URL(url).host;
+  } catch {
+    return url.replace(/^https?:\/\//, "");
+  }
+};
+
 const MOT_ETAT = { up: "Opérationnel", degraded: "Dégradé", down: "Indisponible" };
 
 /**
@@ -273,7 +294,7 @@ function carte(s) {
           <span class="pastille pastille--${s.status === "up" ? "haut" : "bas"}" aria-hidden></span>
           <div>
             <h3>${echapper(s.name)}</h3>
-            <a class="lien-service" href="${echapper(s.url)}" rel="noreferrer">${echapper(s.url.replace(/^https?:\/\//, ""))}</a>
+            <a class="lien-service" href="${echapper(s.url)}" rel="noreferrer">${echapper(hoteDe(s.url))}</a>
           </div>
         </div>
         <div class="carte-chiffres">
