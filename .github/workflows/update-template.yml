@@ -40,3 +40,5 @@ jobs:
           command: "update-template"
         env:
           GH_PAT: ${{ secrets.GH_PAT || github.token }}
+
+# Réenregistrement du workflow auprès de GitHub Actions — voir le commit.
