@@ -51,6 +51,17 @@ const JOURS = 90;
    deux largeurs, sans script et sans second rendu. */
 const JOURS_MOBILE = 30;
 
+/**
+ * Où le navigateur relit les mesures, sans passer par une reconstruction.
+ *
+ * raw.githubusercontent sert `Access-Control-Allow-Origin: *` et un cache
+ * de 5 minutes — soit exactement la cadence des sondes. C'est GitHub, pas
+ * Vercel : la page garde donc sa propriété essentielle, rester debout
+ * quand l'infrastructure surveillée tombe.
+ */
+const SOURCE_BRUTE =
+  "https://raw.githubusercontent.com/Webcosa/status-page/master/history";
+
 /** La page contact de la vitrine. Le seul lien sortant qui compte ici. */
 const LIEN_ASSISTANCE = "https://www.webcosa.com/contact";
 
@@ -218,7 +229,7 @@ function carte(s) {
   const mesures = b.filter((j) => j.etat !== "vide").length;
 
   return `
-    <article class="carte">
+    <article class="carte" data-slug="${echapper(s.slug)}">
       <header class="carte-tete">
         <div class="carte-titre">
           <span class="pastille pastille--${s.status === "up" ? "haut" : "bas"}" aria-hidden></span>
@@ -564,6 +575,100 @@ body{
   }
   ecrire();
   setInterval(ecrire, 30000);
+  /* Rejoué quand le rafraîchissement réseau pose une date plus
+     récente — sinon l'écran garderait la fraîcheur du build. */
+  t.addEventListener("maj", function () {
+    quand = new Date(t.getAttribute("datetime"));
+    ecrire();
+  });
+})();
+
+/* ── Relire les mesures sans reconstruire la page ────────────────────────
+   La page est un fichier statique reconstruit une fois par nuit. Sans ce
+   bloc, elle afficherait des chiffres vieux de quelques heures — sur une
+   page de statut, c'est la seule chose qu'on ne peut pas se permettre.
+
+   Elle relit donc « summary.json » à chaque ouverture. Tout est écrit en
+   dur AUSSI dans le HTML : si le réseau refuse, si GitHub répond mal, si
+   le script ne tourne pas, la page reste juste et complète — elle est
+   simplement datée. Aucune branche ne peut la laisser vide.
+
+   Volontairement limité aux chiffres. Les barres journalières se
+   recalculent à la reconstruction : elles décrivent des jours entiers,
+   pas des secondes, et les redessiner ici doublerait la logique de
+   « barres() » en JavaScript pour un gain nul. */
+(function () {
+  var SOURCE = "${SOURCE_BRUTE}";
+  var MOTS = { up: "Opérationnel", degraded: "Dégradé", down: "Indisponible" };
+
+  function pourcent(brut) {
+    var n = parseFloat(String(brut));
+    if (!isFinite(n)) return String(brut);
+    var c = Number.isInteger(n) ? String(n) : n.toFixed(2).replace(".", ",");
+    return c + " %";
+  }
+
+  fetch(SOURCE + "/summary.json", { cache: "no-cache" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (services) {
+      if (!Array.isArray(services) || !services.length) return;
+      var tousBons = true;
+
+      services.forEach(function (s) {
+        var carte = document.querySelector('[data-slug="' + s.slug + '"]');
+        if (!carte) return;
+        var bon = s.status === "up";
+        if (!bon) tousBons = false;
+
+        var etat = carte.querySelector(".dispo");
+        if (etat) {
+          etat.textContent = MOTS[s.status] || "Inconnu";
+          etat.className = "dispo dispo--" + (bon ? "haut" : "bas");
+        }
+        var pastille = carte.querySelector(".pastille");
+        if (pastille) pastille.className = "pastille pastille--" + (bon ? "haut" : "bas");
+        var lat = carte.querySelector(".latence");
+        if (lat && typeof s.time === "number") lat.textContent = s.time + " ms";
+        var taux = carte.querySelector(".mesure b");
+        if (taux) taux.textContent = pourcent(s.uptime);
+      });
+
+      var h1 = document.querySelector(".bandeau h1");
+      if (h1) {
+        h1.innerHTML = tousBons
+          ? "Tous les services sont <em>opérationnels</em>"
+          : services.every(function (s) { return s.status !== "up"; })
+            ? "Une <em>panne</em> est en cours"
+            : "Un service est <em>perturbé</em>";
+      }
+
+      /* La fraîcheur ne peut PAS venir des fichiers de mesure.
+         Upptime journalise « Skipping commit, status is up » : il n'écrit
+         dans history/ que si l'état CHANGE. Son lastUpdated répond donc à
+         « depuis quand est-ce dans cet état », pas à « quand a-t-on
+         regardé » — et l'afficher comme une heure de mesure annonçait
+         « il y a 3 heures » sur un contrôle passé vingt minutes plus tôt.
+         Exactement le genre d'écart qui fait douter d'une page entière.
+
+         La seule source qui réponde à la vraie question est la date de la
+         dernière exécution réussie de la sonde. Non authentifiée, l'API
+         de GitHub plafonne à 60 appels par heure et par IP ; c'est sans
+         rapport avec le trafic d'une page de statut, et un dépassement
+         retombe simplement sur l'horodatage écrit en dur. */
+      return fetch(
+        "https://api.github.com/repos/Webcosa/status-page/actions/workflows/uptime.yml/runs?status=success&per_page=1"
+      )
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+        .then(function (d) {
+          var run = d && d.workflow_runs && d.workflow_runs[0];
+          var t = document.getElementById("fraicheur");
+          if (run && t && !isNaN(new Date(run.updated_at))) {
+            t.setAttribute("datetime", new Date(run.updated_at).toISOString());
+            t.dispatchEvent(new Event("maj"));
+          }
+        });
+    })
+    .catch(function () { /* Le HTML écrit en dur fait foi. */ });
 })();
 </script>
 

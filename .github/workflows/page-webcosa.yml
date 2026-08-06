@@ -13,19 +13,27 @@
 name: Page Webcosa
 
 on:
-  # Après CHAQUE mesure. Upptime sonde toutes les 5 minutes ; sans ce
-  # déclencheur la page afficherait une heure de mesure vieille d'une
-  # demi-heure, ce qui est exactement le chiffre qu'on vient y chercher
-  # quand on soupçonne une panne.
-  workflow_run:
-    workflows: ["Uptime CI"]
-    types: [completed]
+  # PAS après chaque mesure, et c'est une correction, pas un compromis.
+  #
+  # On reconstruisait toutes les 5 minutes. Chaque publication sur
+  # `gh-pages` déclenche un « pages build and deployment » qui met 3 à
+  # 5 minutes : à cette cadence ils se chevauchaient, s'annulaient l'un
+  # l'autre, et la file a fini par rester bloquée en `deployment_queued`
+  # jusqu'au dépassement de délai. Résultat concret : la page ne se
+  # mettait plus à jour du tout.
+  #
+  # La fraîcheur ne vient donc plus de la reconstruction mais du
+  # navigateur : la page relit `history/summary.json` sur raw.github
+  # (CORS ouvert, cache de 5 minutes — exactement la cadence des sondes)
+  # à chaque ouverture. Reconstruire ne sert plus qu'aux barres
+  # journalières, qui par définition changent une fois par jour.
   push:
     branches: [master]
     paths:
       - "scripts/page.mjs"
       - ".github/workflows/page-webcosa.yml"
-  # Le filet, si le déclencheur ci-dessus casse un jour en silence.
+  # Une fois par nuit : c'est le rythme des barres journalières, et ça
+  # laisse la file de déploiement de Pages entièrement libre.
   schedule:
     - cron: "17 4 * * *"
   workflow_dispatch:
