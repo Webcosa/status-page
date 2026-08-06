@@ -43,6 +43,49 @@ const RACINE = process.cwd();
 const SORTIE = join(RACINE, "site-webcosa");
 const JOURS = 90;
 
+/* Trente sur mobile : quatre-vingt-dix segments ne TIENNENT pas dans les
+   ~256 px utiles d'un écran de 320. Ils débordaient de la carte, et le
+   seul segment coloré — aujourd'hui, le seul qui porte une information —
+   se retrouvait poussé hors de l'écran. Les soixante plus anciens sont
+   masqués en CSS plutôt que retirés du HTML : une seule page sert les
+   deux largeurs, sans script et sans second rendu. */
+const JOURS_MOBILE = 30;
+
+/** La page contact de la vitrine. Le seul lien sortant qui compte ici. */
+const LIEN_ASSISTANCE = "https://www.webcosa.com/contact";
+
+/**
+ * Le symbole de la marque, embarqué EN DUR dans la page.
+ *
+ * Il n'est pas chargé depuis webcosa.com, et c'est le point entier : cette
+ * page est celle qu'on ouvre quand webcosa.com ne répond plus. Un logo
+ * pointant vers l'infrastructure surveillée serait cassé exactement le
+ * jour où la page sert à quelque chose.
+ *
+ * Il sert de MASQUE CSS, pas d'image : la couleur vient alors de
+ * `background`, donc le même fichier donne un symbole encre en thème clair
+ * et blanc en thème sombre. Une balise `img` aurait imposé deux fichiers
+ * et un `picture` pour les alterner.
+ */
+const SYMBOLE = `url("data:image/png;base64,${readFileSync(
+  join(RACINE, "marque", "symbole.png"),
+).toString("base64")}")`;
+
+/** Le favicon, embarqué pour la même raison que le symbole. */
+const enDonnees = (fichier) =>
+  `data:image/png;base64,${readFileSync(join(RACINE, "marque", fichier)).toString("base64")}`;
+
+/**
+ * Ce qu'on écrit à droite du nom du service.
+ *
+ * Un mot, pas un pourcentage : le pourcentage descend sous les barres, là
+ * où toutes les pages de statut le mettent, parce qu'il qualifie la
+ * PÉRIODE dessinée juste au-dessus. En haut on veut l'état de MAINTENANT,
+ * et « Opérationnel » se lit sans être interprété — « 100 % » ne dit pas
+ * si le service répond à cette seconde.
+ */
+const MOT_ETAT = { up: "Opérationnel", degraded: "Dégradé", down: "Indisponible" };
+
 /* ── Lecture ─────────────────────────────────────────────────────────── */
 
 const resume = JSON.parse(
@@ -185,7 +228,7 @@ function carte(s) {
           </div>
         </div>
         <div class="carte-chiffres">
-          <span class="dispo dispo--${etat}">${echapper(pourcent(s.uptime))}</span>
+          <span class="dispo dispo--${etat}">${MOT_ETAT[s.status] ?? "Inconnu"}</span>
           <span class="latence">${s.time} ms</span>
         </div>
       </header>
@@ -193,8 +236,8 @@ function carte(s) {
       <div class="barres" role="img" aria-label="Disponibilité sur ${JOURS} jours : ${echapper(s.uptime)}">${segments}</div>
 
       <footer class="carte-pied">
-        <span>il y a ${JOURS} jours</span>
-        <span class="mesure">${mesures === 0 ? "aucune mesure" : mesures === 1 ? "1 jour mesuré" : `${mesures} jours mesurés`}</span>
+        <span><span class="quand-long">il y a ${JOURS} jours</span><span class="quand-court">il y a ${JOURS_MOBILE} jours</span></span>
+        <span class="mesure"><b>${echapper(pourcent(s.uptime))}</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · ${mesures === 0 ? "aucun jour mesuré" : mesures === 1 ? "1 jour mesuré" : `${mesures} jours mesurés`}</em></span>
         <span>aujourd'hui</span>
       </footer>
     </article>`;
@@ -208,6 +251,9 @@ const html = `<!doctype html>
 <title>Statut — Webcosa</title>
 <meta name="description" content="L'état en direct des services Webcosa : le site, la documentation, le Store et le CMS.">
 <meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="${enDonnees("favicon.png")}">
+<link rel="apple-touch-icon" href="${enDonnees("favicon-180.png")}">
+<meta name="theme-color" content="#0D0F15">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Plus+Jakarta+Sans:wght@400..700&display=swap" rel="stylesheet">
@@ -233,6 +279,7 @@ const html = `<!doctype html>
 
   --titre:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --corps:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;
+  --symbole:${SYMBOLE};
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -260,22 +307,28 @@ body{
   backdrop-filter:blur(12px);z-index:10}
 .entete-corps{display:flex;align-items:center;justify-content:space-between;
   gap:16px;height:60px}
-.marque{display:flex;align-items:center;gap:9px;text-decoration:none;color:inherit}
-.marque-logo{width:24px;height:24px;border-radius:7px;background:var(--encre);
-  display:grid;place-items:center;overflow:hidden;position:relative;flex:none}
-.marque-logo::before{content:"";position:absolute;inset:0;
-  background:radial-gradient(130% 130% at 20% 10%,
-    color-mix(in oklch,var(--violet-300) 70%,transparent) 0%,
-    color-mix(in oklch,var(--marque) 50%,transparent) 46%,transparent 76%)}
-.marque-logo span{position:relative;color:#fff;font-family:var(--titre);
-  font-weight:600;font-size:13px;line-height:1}
-.marque b{font-family:var(--titre);font-weight:600;font-size:15.5px;
+.marque{display:flex;align-items:center;gap:9px;text-decoration:none;
+  color:inherit;min-width:0}
+/* Le symbole est un MASQUE : sa couleur vient de « background », donc il
+   suit le thème tout seul. « currentColor » serait tentant, mais un masque
+   ne lit pas la couleur du texte — il faut une vraie valeur de fond. */
+.symbole{background:var(--texte);flex:none;
+  -webkit-mask:var(--symbole) center/contain no-repeat;
+  mask:var(--symbole) center/contain no-repeat}
+.marque .symbole{width:26px;height:26px}
+.marque b{font-family:var(--titre);font-weight:600;font-size:16px;
   letter-spacing:-.03em;font-variation-settings:"opsz" 24}
-.marque i{font-style:normal;color:var(--texte-3);font-size:15.5px}
-.lien-retour{color:var(--texte-2);text-decoration:none;font-size:13.5px;
-  padding:7px 13px;border:1px solid var(--filet);border-radius:999px;
-  transition:color .2s,border-color .2s}
-.lien-retour:hover{color:var(--texte);border-color:var(--texte-3)}
+.marque i{font-style:normal;color:var(--texte-3);font-size:16px;
+  letter-spacing:-.02em}
+/* Le seul geste possible depuis cette page. Rempli, donc : quelqu'un qui
+   arrive ici parce que « ça ne marche pas » doit voir où demander de
+   l'aide sans le chercher.
+   En encre et non en bleu — la charte interdit le bleu Webcosa en aplat.
+   « --texte » sur « --fond » s'inverse tout seul en thème sombre. */
+.bouton-aide{background:var(--texte);color:var(--fond);text-decoration:none;
+  font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:999px;
+  white-space:nowrap;flex:none;transition:opacity .18s ease}
+.bouton-aide:hover{opacity:.85}
 
 /* ── Bandeau ─────────────────────────────────────────────── */
 .bandeau{padding:56px 0 40px}
@@ -372,19 +425,71 @@ body{
   .seg:hover::after{background:oklch(0.28 0.01 265)}}
 .carte-pied{display:flex;justify-content:space-between;align-items:center;
   gap:12px;margin-top:9px;font-size:11.5px;color:var(--texte-3)}
-.mesure{color:var(--texte-3)}
+.mesure{color:var(--texte-3);text-align:center}
+.mesure b{font-weight:600;color:var(--texte-2);font-variant-numeric:tabular-nums}
+/* Le nombre de jours réellement mesurés qualifie le pourcentage : « 100 % »
+   sur un seul jour ne vaut pas « 100 % » sur quatre-vingt-dix. Il sort sur
+   mobile, où la ligne n'a pas la place — pas la garde d'honnêteté qui
+   compte le plus, mais celle qu'on peut se permettre de perdre. */
+.sur{font-style:normal;opacity:.8}
 
 /* ── Pied ────────────────────────────────────────────────── */
-.pied{margin-top:34px;padding:26px 0 46px;border-top:1px solid var(--filet);
-  color:var(--texte-3);font-size:12.5px;display:flex;flex-wrap:wrap;
-  gap:8px 20px;justify-content:space-between;align-items:center}
-.pied a{color:var(--texte-2);text-decoration:none}
-.pied a:hover{text-decoration:underline}
+/* Une seule ligne, centrée, discrète — comme la font toutes les pages de
+   statut qu'on regarde sans y penser. Les deux phrases qui étaient là
+   expliquaient le montage technique à des gens venus vérifier si leur
+   site répond ; personne ne lit ça. Ce qui reste tient dans le survol. */
+.pied{margin-top:38px;padding:24px 0 52px;border-top:1px solid var(--filet);
+  display:flex;justify-content:center}
+.propulse{display:inline-flex;align-items:center;gap:7px;
+  color:var(--texte-3);font-size:12.5px;text-decoration:none;
+  transition:color .18s ease}
+.propulse:hover{color:var(--texte-2)}
+.propulse .symbole{width:15px;height:15px;background:currentColor}
+.propulse b{font-weight:600;font-family:var(--titre);
+  font-variation-settings:"opsz" 14;letter-spacing:-.02em}
+.propulse em{font-style:normal;opacity:.72}
 :focus-visible{outline:2px solid var(--marque);outline-offset:3px;border-radius:4px}
-@media (max-width:560px){
-  .carte-tete{flex-direction:column;gap:10px}
-  .carte-chiffres{text-align:left;display:flex;gap:12px;align-items:baseline}
+/* L'étiquette de gauche a deux versions : la période affichée change avec
+   la largeur, donc le libellé doit changer avec elle. Écrire « il y a 90
+   jours » sous trente barres serait un mensonge de plus. */
+.quand-court{display:none}
+
+@media (max-width:640px){
+  .enveloppe{padding:0 16px}
+  .entete-corps{height:56px}
+  .bandeau{padding:38px 0 30px}
+
+  /* Les soixante plus anciens sortent : il reste les trente derniers.
+     Masqués et non supprimés — « display:none » les retire aussi de l'arbre
+     d'accessibilité, donc un lecteur d'écran annonce ce qui est montré. */
+  .seg:nth-child(-n+${JOURS - JOURS_MOBILE}){display:none}
+  .quand-long{display:none}
+  .quand-court{display:inline}
+  /* L'ancrage de l'infobulle suit : le premier segment VISIBLE n'est plus
+     l'enfant 1 mais l'enfant 61. Sans ça, les bulles du bord gauche
+     restaient centrées et sortaient de l'écran. */
+  .seg:nth-child(-n+${JOURS - JOURS_MOBILE + 12}):hover::after{
+    left:0;transform:none}
+
+  .sur{display:none}
+  /* Les bornes ne se coupent jamais en deux lignes : « il y a 30 / jours »
+     casse la lecture de la frise plus sûrement qu'un corps plus petit. */
+  .carte-pied{font-size:11px;gap:8px}
+  .carte-pied>span:first-child,.carte-pied>span:last-child{white-space:nowrap}
+  .carte{padding:16px 16px 13px}
+  .carte-tete{flex-direction:column;gap:9px}
+  .carte-chiffres{text-align:left;display:flex;gap:11px;align-items:baseline}
   .barres{height:30px}
+  .pied{padding:22px 0 40px}
+}
+
+/* Sous 360 px, « Statut » passe à la trappe : le symbole, le nom et le
+   bouton d'assistance doivent tenir sur une ligne, et c'est le mot le
+   moins utile des trois — le titre de l'onglet le dit déjà. */
+@media (max-width:359px){
+  .marque i{display:none}
+  /* Le chiffre suffit ; « de disponibilité » est deviné par la frise. */
+  .mot-dispo{display:none}
 }
 </style>
 </head>
@@ -393,10 +498,10 @@ body{
 <header class="entete">
   <div class="enveloppe entete-corps">
     <a class="marque" href="https://www.webcosa.com">
-      <span class="marque-logo"><span>W</span></span>
+      <span class="symbole" aria-hidden></span>
       <b>Webcosa</b><i>Statut</i>
     </a>
-    <a class="lien-retour" href="https://www.webcosa.com">Retour au site</a>
+    <a class="bouton-aide" href="${LIEN_ASSISTANCE}">Assistance</a>
   </div>
 </header>
 
@@ -412,8 +517,11 @@ body{
   </section>
 
   <footer class="pied">
-    <span>Mesuré depuis le ${dateFr(DEBUT)}. Une interruption ouvre automatiquement un signalement.</span>
-    <span>Hébergé hors de notre infrastructure — cette page reste debout si Webcosa tombe.</span>
+    <a class="propulse" href="https://www.webcosa.com"
+       title="Cette page est hébergée en dehors de l'infrastructure Webcosa : elle reste accessible même pendant une panne.">
+      Propulsé par <span class="symbole" aria-hidden></span><b>Webcosa</b>
+      <em>· hors infrastructure</em>
+    </a>
   </footer>
 </main>
 
