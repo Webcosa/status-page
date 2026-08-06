@@ -32,6 +32,19 @@ on:
     paths:
       - "scripts/page.mjs"
       - ".github/workflows/page-webcosa.yml"
+      # Le récapitulatif des mesures, et c'est le déclencheur qui manquait.
+      #
+      # Upptime n'écrit dans history/ QUE si quelque chose change — il
+      # journalise « Skipping commit, status is up » le reste du temps. Ce
+      # chemin ne se déclenche donc pas toutes les 5 minutes : il se
+      # déclenche exactement quand la page a quelque chose de nouveau à
+      # dire, c'est-à-dire une panne, un rétablissement, ou un service
+      # ajouté.
+      #
+      # Sans lui, ajouter un composant ne se voyait qu'à la reconstruction
+      # de nuit : les trois sondes de santé étaient mesurées et publiées
+      # dans les données, mais absentes de la page pendant des heures.
+      - "history/summary.json"
   # Une fois par nuit : c'est le rythme des barres journalières, et ça
   # laisse la file de déploiement de Pages entièrement libre.
   schedule:
