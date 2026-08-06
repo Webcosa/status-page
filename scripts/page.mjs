@@ -316,10 +316,14 @@ body{
   -webkit-mask:var(--symbole) center/contain no-repeat;
   mask:var(--symbole) center/contain no-repeat}
 .marque .symbole{width:26px;height:26px}
-.marque b{font-family:var(--titre);font-weight:600;font-size:16px;
-  letter-spacing:-.03em;font-variation-settings:"opsz" 24}
-.marque i{font-style:normal;color:var(--texte-3);font-size:16px;
-  letter-spacing:-.02em}
+/* Le verrou de la marque, identique à celui de dev et du Store :
+   « Webcosa » en normale, le mot de la surface en grasse, MÊME couleur
+   pour les deux. Griser le second mot en ferait une légende ; ici il
+   nomme le produit, au même titre que le premier. */
+.verrou{font-family:var(--titre);font-size:16.5px;font-weight:400;
+  letter-spacing:-.028em;font-variation-settings:"opsz" 24;
+  white-space:nowrap}
+.verrou b{font-weight:700}
 /* Le seul geste possible depuis cette page. Rempli, donc : quelqu'un qui
    arrive ici parce que « ça ne marche pas » doit voir où demander de
    l'aide sans le chercher.
@@ -487,7 +491,7 @@ body{
    bouton d'assistance doivent tenir sur une ligne, et c'est le mot le
    moins utile des trois — le titre de l'onglet le dit déjà. */
 @media (max-width:359px){
-  .marque i{display:none}
+  .verrou b{display:none}
   /* Le chiffre suffit ; « de disponibilité » est deviné par la frise. */
   .mot-dispo{display:none}
 }
@@ -499,7 +503,7 @@ body{
   <div class="enveloppe entete-corps">
     <a class="marque" href="https://www.webcosa.com">
       <span class="symbole" aria-hidden></span>
-      <b>Webcosa</b><i>Statut</i>
+      <span class="verrou">Webcosa <b>Statut</b></span>
     </a>
     <a class="bouton-aide" href="${LIEN_ASSISTANCE}">Assistance</a>
   </div>
