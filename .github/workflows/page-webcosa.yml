@@ -1,0 +1,70 @@
+# La page de statut de Webcosa.
+#
+# Elle REMPLACE « Static Site CI » (site.yml), qui reste dans le dépôt mais
+# est désactivé côté GitHub. Les deux publient sur `gh-pages` : les laisser
+# tourner ensemble ferait alterner la page de Webcosa et celle d'Upptime au
+# gré des exécutions, ce qui est le genre de panne qu'on met des heures à
+# comprendre parce que la page « remarche » à chaque fois qu'on la recharge.
+#
+# On ne supprime pas site.yml : `update-template` le réécrirait, et le
+# fichier reviendrait. Le désactiver côté GitHub tient, lui, quoi qu'il
+# arrive au fichier.
+
+name: Page Webcosa
+
+on:
+  # Après CHAQUE mesure. Upptime sonde toutes les 5 minutes ; sans ce
+  # déclencheur la page afficherait une heure de mesure vieille d'une
+  # demi-heure, ce qui est exactement le chiffre qu'on vient y chercher
+  # quand on soupçonne une panne.
+  workflow_run:
+    workflows: ["Uptime CI"]
+    types: [completed]
+  push:
+    branches: [master]
+    paths:
+      - "scripts/page.mjs"
+      - ".github/workflows/page-webcosa.yml"
+  # Le filet, si le déclencheur ci-dessus casse un jour en silence.
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+# Deux exécutions concurrentes déploieraient deux versions dans un ordre
+# indéterminé — donc potentiellement l'ancienne en dernier.
+concurrency:
+  group: page-webcosa
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  publier:
+    name: Construire et publier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Aucune dépendance : le script n'utilise que `node:fs` et `Intl`.
+      # Rien à installer, donc rien qui puisse casser à l'installation.
+      - name: Construire la page
+        run: node scripts/page.mjs
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ github.token }}
+          publish_dir: site-webcosa
+          # `gh-pages` est un ARTEFACT, pas un historique. Sans orphelin,
+          # une reconstruction toutes les 5 minutes y empilerait ~300
+          # commits par jour pour une page de 40 Ko — quelques gigaoctets
+          # par an, pour zéro information qu'on ne trouve pas déjà dans
+          # `history/`.
+          force_orphan: true
+          user_name: "webcosa-bot"
+          user_email: "bot@webcosa.com"
+          commit_message: "page de statut"
