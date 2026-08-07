@@ -411,7 +411,16 @@ function carte(s) {
       <footer class="carte-pied">
         <span><span class="quand-long">il y a ${JOURS} jours</span><span class="quand-court">il y a ${JOURS_MOBILE} jours</span></span>
         <span class="mesure"><b>${echapper(pourcent(s.uptime))}</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · ${mesures === 0 ? "aucun jour mesuré" : mesures === 1 ? "1 jour mesuré" : `${mesures} jours mesurés`}</em></span>
-        <span>aujourd'hui</span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">${echapper(dateFr(new Date(b[b.length - 1].cle)))}</span>
       </footer>
     </article>`;
 }
@@ -778,13 +787,108 @@ body{
    le script ne tourne pas, la page reste juste et complète — elle est
    simplement datée. Aucune branche ne peut la laisser vide.
 
-   Volontairement limité aux chiffres. Les barres journalières se
-   recalculent à la reconstruction : elles décrivent des jours entiers,
-   pas des secondes, et les redessiner ici doublerait la logique de
-   « barres() » en JavaScript pour un gain nul. */
+   ── Les barres AUSSI, et l'ancienne raison de ne pas le faire était
+   fausse ──────────────────────────────────────────────────────────────
+   Il était écrit ici que les redessiner « doublerait la logique de
+   barres() pour un gain nul », au motif qu'elles décrivent des jours
+   entiers et que la reconstruction nocturne suffit.
+
+   La prémisse cachée était que la reconstruction A LIEU. Le 7 août, elle
+   n'avait pas eu lieu : le cron de 4 h 17 n'a pas été déclenché — sur ce
+   dépôt l'ordonnanceur de GitHub tourne à une à trois heures d'intervalle
+   au lieu des cinq minutes demandées — et le déploiement Pages était
+   bloqué en « building » depuis quatorze heures. La page affichait donc
+   « aujourd'hui » sous la barre du 6.
+
+   Le gain n'était pas nul : il vaut la différence entre une page juste et
+   une page qui se trompe de jour. Et « summary.json » porte
+   « dailyMinutesDown », c'est-à-dire exactement la donnée des barres :
+   tout ce qu'il fallait était déjà téléchargé.
+
+   Les barres se recalculent donc ici, à chaque ouverture, avec la date du
+   VISITEUR. La reconstruction nocturne redevient ce qu'elle aurait
+   toujours dû être — un confort, pas une condition de justesse. */
 (function () {
   var SOURCE = "${SOURCE_BRUTE}";
   var MOTS = { up: "Opérationnel", degraded: "Dégradé", down: "Indisponible" };
+
+  /* Les trois constantes qui manquaient au navigateur pour refaire le
+     calcul du build. « DEBUT » est la première mesure jamais enregistrée :
+     une date passée, définitivement figée, donc sans risque de péremption
+     — contrairement à tout le reste de cette page. */
+  var DEBUT = new Date("${DEBUT.toISOString()}");
+  var JOURS = ${JOURS};
+  var LIBELLES = {
+    haut: "aucune interruption",
+    degrade: "interruption courte",
+    bas: "indisponible",
+    vide: "pas encore de données",
+  };
+
+  var dateFr = new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    timeZone: "Europe/Paris",
+  });
+
+  /* Le jumeau exact de « barres() » côté build. Les deux doivent rester
+     d'accord : mêmes seuils — une minute pour « dégradé », soixante pour
+     « indisponible » —, et surtout la même règle sur les jours d'AVANT la
+     première mesure. Un jour sans mesure n'est pas un jour sans panne :
+     il s'affiche en trait fin, jamais en vert. */
+  function calculer(service) {
+    var bas = service.dailyMinutesDown || {};
+    var out = [];
+    var auj = new Date();
+    for (var i = JOURS - 1; i >= 0; i--) {
+      var d = new Date(auj);
+      d.setUTCDate(d.getUTCDate() - i);
+      var cle = d.toISOString().slice(0, 10);
+      if (new Date(cle + "T23:59:59Z") < DEBUT) {
+        out.push({ cle: cle, etat: "vide" });
+        continue;
+      }
+      var min = bas[cle] || 0;
+      out.push({ cle: cle, etat: min >= 60 ? "bas" : min >= 1 ? "degrade" : "haut" });
+    }
+    return out;
+  }
+
+  function redessiner(carte, service) {
+    var jours = calculer(service);
+
+    var zone = carte.querySelector(".barres");
+    if (zone) {
+      var html = "";
+      for (var i = 0; i < jours.length; i++) {
+        var j = jours[i];
+        var info = dateFr.format(new Date(j.cle)) + " · " + LIBELLES[j.etat];
+        html +=
+          '<i class="seg seg--' + j.etat + '" data-info="' +
+          info.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;") +
+          '"></i>';
+      }
+      zone.innerHTML = html;
+    }
+
+    // Le nombre de jours réellement observés — il grandit d'un par jour,
+    // et resterait figé si seul le build le calculait.
+    var mesures = 0;
+    for (var k = 0; k < jours.length; k++) if (jours[k].etat !== "vide") mesures++;
+    var sur = carte.querySelector(".mesure .sur");
+    if (sur) {
+      sur.textContent =
+        " · " +
+        (mesures === 0 ? "aucun jour mesuré"
+         : mesures === 1 ? "1 jour mesuré"
+         : mesures + " jours mesurés");
+    }
+
+    // Le dernier segment est celui d'aujourd'hui — maintenant qu'on vient
+    // de le calculer avec l'horloge du visiteur, le mot est exact.
+    var fin = carte.querySelector(".quand-fin");
+    if (fin) fin.textContent = "aujourd'hui";
+  }
 
   function pourcent(brut) {
     var n = parseFloat(String(brut));
@@ -816,6 +920,10 @@ body{
         if (lat && typeof s.time === "number") lat.textContent = s.time + " ms";
         var taux = carte.querySelector(".mesure b");
         if (taux) taux.textContent = pourcent(s.uptime);
+
+        // Enveloppé : une barre qui refuse de se redessiner ne doit pas
+        // empêcher les six autres cartes de se mettre à jour.
+        try { redessiner(carte, s); } catch (e) {}
       });
 
       var h1 = document.querySelector(".bandeau h1");
