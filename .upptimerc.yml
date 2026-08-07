@@ -16,6 +16,25 @@ sites:
   - name: Rendu des sites
     url: https://cms.webcosa.com/api/sante?c=rendu
 
+  # ── Les deux qui sortent par la porte d'entrée ───────────────────────
+  # Les quatre au-dessus mesurent qu'un serveur répond, ou qu'une
+  # dépendance répond. Aucune ne peut voir une page qui répond
+  # PARFAITEMENT et ne marche pas — c'est ce qui est arrivé le 6 août : la
+  # vitrine a passé des heures sans un clic possible, en rendant 200 en
+  # 40 ms avec un HTML complet, pendant que ces moniteurs étaient au vert
+  # et avaient raison de l'être.
+  #
+  # Ces deux-là récupèrent une vraie page et vérifient qu'elle est
+  # utilisable : corps non vide, et surtout cohérence entre la politique
+  # de sécurité et le HTML — un nonce exigé que le corps ne porte pas fait
+  # bloquer par le navigateur TOUS les scripts en ligne, donc l'amorce
+  # d'hydratation. « Sites clients » va en plus chercher la feuille de
+  # style du thème à l'adresse écrite dans la page.
+  - name: Sites clients
+    url: https://cms.webcosa.com/api/sante?c=site
+  - name: Écran de connexion
+    url: https://cms.webcosa.com/api/sante?c=ecran
+
   # ── Nos sites ────────────────────────────────────────────────────────
   - name: Site vitrine
     url: https://www.webcosa.com
