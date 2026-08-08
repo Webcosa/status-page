@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Statut — Webcosa</title>
+<meta name="description" content="L'état en direct des services Webcosa : le site, la documentation, le Store et le CMS.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADyUlEQVR4nL1XQU8bRxTemfHaprKToBaPU0GFIkIOWEoFaksriFX3FsS5USi3+kCURM2hEVIQaSQ4NJfmBzTigpojuaciWlxQm6pYKW6rYsBCNRCrphIGe2d2d3aqsdhqE3l37Trmk8Yz3jfzvm/eezu7C6QGoWmUu9n9/gBoxB94HaTNiIGtIq93LWgFcSPRgCdB7uYTngS5m294UuROHLBVROYxvOYBJ2UWOOfiumhA4FUb57xKAiFE9uvWXPu4VlFCL/IqKwBQ/Nh3ZNkEcS3yra2tzXw+vy3Gx5t4CRYndAqN5ahSqRzlcrksY8yAEMLjXVdtlFJ1eXn5p3Q6nRZrGGNMXH/y5Ptno6Oj71y9OvZWJpPJ1IqABZ/kgvX19Y3r128ESqVST19f3/rs7MwbGONOYSsW9wvXrk0c7O7ufRAMBqRLl+IrU1N3BoW4VCqlHhyUZM4leW1t7Z9YLObIAZ3CL1QvLi7ubG9vdzHGtOxG9sLMzOyBlfMHD775M5vd6AVAogZjuqIoHy0sLPwg1iWTn58bGhr6JfFJYmVkZORirRRYaQBu+S8UCi8uXx4J6Lp2Jhw+pbe1tQWSyaRy5cqn8UQi8Wsm81usu7ubI4SAz4e4LPvVR4++K2GM33aL7EsRkBwgCi4ajZ6dmrrzByEUEqIiQgibm5sbLBaLOxhH6VH5CO7vFyXDMAAhVDo8OgxNT08XRN2ISJXLZdG7ni3A7fARRYUQQmNjn62urq72nz59SvP7A/54PP5MVVU6Pz8/bBi6gXHUhxCSAASmyRiMRPBfCCF9cnJyP5H4+D3LT0MRELCq9969r86YpknL5YqPENVcWlLe39zcjFBKTIR8IB6P/2wYhkQIAbpu6LlcrktEcHh46KLoxd0jOQA6GapGCKFQ39PTc258fPxHSgnUNN0slytSPp+/IMsygBCYd+9ORwcGBp5rVAOarnFKqXT//tdElmW/00FUlwBLhNjFzZs33g2FQn+rRAWiFggleigUBoODH/6OMe66fftLHwCAqRXVPzExofT398fcQv8fNI1yr6aqFUP0Dx9+uxSJRDjGmHd0dPBwOMwV5elzkQphT6WW0o8fL6yIMSEqq8e3VK8I4ZBSwm7d+kLp7Ow87O09/0IIstmqIkSzj73IgSVAagB7e3u7wWAw0N7e/qY9xyJV4r9n2G0PJNCoAHtVe1V43QIaFWEdLm7V7QXrcQxO+o3ITi7QsjeiegGb+ar5P3iVA3pNaCV5TQGtEuHkE3gtbLYwvTYDm3XQ7NqGnb/uz/N/Af/A+VVyl+fzAAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<meta name="theme-color" content="#0D0F15">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Plus+Jakarta+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Gris bleutés à la teinte 265, comme la charte. */
+  --encre:oklch(0.17 0.012 265);
+  --gris-50:oklch(0.985 0.001 265); --gris-100:oklch(0.965 0.002 265);
+  --gris-200:oklch(0.925 0.003 265); --gris-500:oklch(0.62 0.008 265);
+  --marque:oklch(0.55 0.19 268); --violet-300:oklch(0.75 0.15 300);
+  --acide:oklch(0.88 0.2 122);
+
+  --fond:#fff; --fond-2:var(--gris-50); --carte:#fff;
+  --texte:var(--encre); --texte-2:oklch(0.5 0.01 265); --texte-3:oklch(0.55 0.01 265);
+  --filet:oklch(0.9 0.004 265);
+
+  /* Un vert PROPRE pour les barres. L'acide est réservé à ce qui est en
+     train de se passer — le point qui pulse, et lui seul. */
+  --haut:oklch(0.68 0.15 155);
+  --degrade:oklch(0.78 0.16 75);
+  --bas:oklch(0.62 0.21 25);
+  --vide:oklch(0.93 0.004 265);
+
+  --titre:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --corps:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;
+  --symbole:url("data:image/png;base64,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");
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --fond:oklch(0.155 0.008 265); --fond-2:oklch(0.18 0.009 265);
+    --carte:oklch(0.185 0.009 265);
+    --texte:oklch(0.96 0.002 265); --texte-2:oklch(0.72 0.008 265);
+    --texte-3:oklch(0.62 0.008 265);
+    --filet:oklch(1 0 0/.11);
+    --vide:oklch(1 0 0/.09);
+    --haut:oklch(0.74 0.15 155);
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;background:var(--fond);color:var(--texte);
+  font-family:var(--corps);font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:-.011em;
+}
+.enveloppe{max-width:820px;margin:0 auto;padding:0 24px}
+
+/* ── En-tête ─────────────────────────────────────────────── */
+.entete{border-bottom:1px solid var(--filet);position:sticky;top:0;
+  background:color-mix(in oklch,var(--fond) 86%,transparent);
+  backdrop-filter:blur(12px);z-index:10}
+.entete-corps{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;height:60px}
+.marque{display:flex;align-items:center;gap:9px;text-decoration:none;
+  color:inherit;min-width:0}
+/* Le symbole est un MASQUE : sa couleur vient de « background », donc il
+   suit le thème tout seul. « currentColor » serait tentant, mais un masque
+   ne lit pas la couleur du texte — il faut une vraie valeur de fond. */
+.symbole{background:var(--texte);flex:none;
+  -webkit-mask:var(--symbole) center/contain no-repeat;
+  mask:var(--symbole) center/contain no-repeat}
+.marque .symbole{width:26px;height:26px}
+/* Le verrou de la marque, identique à celui de dev et du Store :
+   « Webcosa » en normale, le mot de la surface en grasse, MÊME couleur
+   pour les deux. Griser le second mot en ferait une légende ; ici il
+   nomme le produit, au même titre que le premier. */
+.verrou{font-family:var(--titre);font-size:16.5px;font-weight:400;
+  letter-spacing:-.028em;font-variation-settings:"opsz" 24;
+  white-space:nowrap}
+.verrou b{font-weight:700}
+/* Le seul geste possible depuis cette page. Rempli, donc : quelqu'un qui
+   arrive ici parce que « ça ne marche pas » doit voir où demander de
+   l'aide sans le chercher.
+   En encre et non en bleu — la charte interdit le bleu Webcosa en aplat.
+   « --texte » sur « --fond » s'inverse tout seul en thème sombre. */
+.bouton-aide{background:var(--texte);color:var(--fond);text-decoration:none;
+  font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:999px;
+  white-space:nowrap;flex:none;transition:opacity .18s ease}
+.bouton-aide:hover{opacity:.85}
+
+/* ── Bandeau ─────────────────────────────────────────────── */
+.bandeau{padding:56px 0 40px}
+.bandeau h1{
+  font-family:var(--titre);font-weight:600;
+  font-size:clamp(1.9rem,4.4vw,2.9rem);line-height:1.02;
+  letter-spacing:-.038em;font-variation-settings:"opsz" 72;
+  margin:0 0 14px;max-width:16ch}
+/* Le masque-titre de la charte, aux valeurs exactes : radial, ancré au
+   coin supérieur gauche, éteint dans currentColor — donc encre en clair
+   et blanc en sombre, sans avoir à le redéclarer.
+
+   Posé sur le TITRE ENTIER, pas sur le mot mis en avant. La charte dit
+   « le mot », et c'est juste pour un mot court ; ici le mot saillant est
+   « opérationnels », treize lettres. Le rayon valant le côté le plus
+   éloigné, l'extinction à 24 % ne mordait que « opé » — trois lettres
+   bleues au milieu d'une ligne noire, qui se lisent comme un bug
+   d'affichage, pas comme une signature. Sur le bloc, la teinte parcourt
+   le début de la première ligne et s'éteint : le geste voulu par la
+   charte, à l'échelle où il fonctionne. */
+.bandeau h1{
+  background-image:radial-gradient(circle farthest-side at 0% 0%,
+    var(--violet-300) 5%,var(--marque) 12%,currentColor 24%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent}
+.bandeau h1 em{font-style:normal}
+.vivant{display:inline-flex;align-items:center;gap:8px;
+  font-size:13.5px;color:var(--texte-2)}
+.point{width:7px;height:7px;border-radius:999px;background:var(--acide);
+  box-shadow:0 0 0 0 color-mix(in oklch,var(--acide) 70%,transparent);
+  animation:pulse 2.4s ease-out infinite;flex:none}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 color-mix(in oklch,var(--acide) 55%,transparent)}
+  70%{box-shadow:0 0 0 7px transparent}
+  100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.point{animation:none}}
+
+/* ── Cartes ──────────────────────────────────────────────── */
+.services{display:flex;flex-direction:column;gap:12px}
+.famille{margin-bottom:30px}
+.incidents{background:var(--carte);border:1px solid var(--filet);
+  border-radius:14px;padding:6px 20px}
+.incident{padding:14px 0;border-top:1px solid var(--filet)}
+.incident:first-child{border-top:0}
+.incident h3{font-family:var(--titre);font-weight:600;font-size:14.5px;
+  letter-spacing:-.02em;font-variation-settings:"opsz" 20;margin:0 0 3px;
+  line-height:1.4}
+.incident--ouvert h3{color:var(--bas)}
+.incident-quand{margin:0;font-size:12.5px;color:var(--texte-3);
+  font-variant-numeric:tabular-nums}
+.incident-duree{color:var(--texte-2);font-weight:600}
+.rien{margin:0;padding:16px 0;font-size:13.5px;color:var(--texte-3)}
+.famille-titre{font-family:var(--corps);font-size:11.5px;font-weight:600;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--texte-3);
+  margin:0 0 11px 3px}
+.carte{background:var(--carte);border:1px solid var(--filet);
+  border-radius:14px;padding:18px 20px 15px}
+.carte-tete{display:flex;align-items:flex-start;justify-content:space-between;
+  gap:16px;margin-bottom:14px}
+.carte-titre{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.pastille{width:8px;height:8px;border-radius:999px;margin-top:8px;flex:none}
+.pastille--haut{background:var(--haut)}
+.pastille--bas{background:var(--bas)}
+.carte h3{font-family:var(--titre);font-weight:600;font-size:16px;
+  letter-spacing:-.028em;font-variation-settings:"opsz" 24;margin:0;
+  line-height:1.35}
+.lien-service{color:var(--texte-3);text-decoration:none;font-size:12.5px;
+  font-variant-numeric:tabular-nums}
+.lien-service:hover{color:var(--texte-2);text-decoration:underline}
+.carte-chiffres{text-align:right;flex:none}
+.dispo{display:block;font-size:14.5px;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.dispo--haut{color:var(--haut)}
+.dispo--bas{color:var(--bas)}
+.latence{display:block;font-size:12px;color:var(--texte-3);
+  font-variant-numeric:tabular-nums}
+
+/* ── Les barres ──────────────────────────────────────────── */
+.barres{display:flex;gap:2px;height:34px;align-items:stretch}
+.seg{flex:1 1 0;min-width:2px;border-radius:2px;background:var(--vide);
+  position:relative;transition:transform .12s ease,filter .12s ease}
+/* Un jour non mesuré est un TRAIT FIN centré, pas une barre grise pleine
+   hauteur. La différence n'est pas cosmétique : à quatre-vingt-dix
+   colonnes grises pour un jour de vert, la page ressemblait à une panne
+   généralisée alors qu'elle dit « je viens d'être installée ». Le trait
+   se lit comme une ligne de temps qui n'a pas encore commencé — et les
+   barres poussent dessus au fil des jours. */
+.seg--vide{align-self:center;height:5px;border-radius:999px}
+.seg--haut{background:var(--haut)}
+.seg--degrade{background:var(--degrade)}
+.seg--bas{background:var(--bas)}
+.seg:hover{transform:scaleY(1.14);filter:brightness(1.08);z-index:2}
+/* L'infobulle sort du segment survolé. Elle ne prend pas le pointeur, sans
+   quoi elle se volerait le survol à elle-même et clignoterait. */
+.seg:hover::after{content:attr(data-info);position:absolute;
+  bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--encre);color:#fff;font-size:11.5px;line-height:1.4;
+  padding:5px 9px;border-radius:7px;white-space:nowrap;
+  pointer-events:none;z-index:3;font-family:var(--corps);letter-spacing:0;
+  /* Le segment est un <i> — sans ça l'infobulle sort en italique. */
+  font-style:normal;font-weight:500}
+/* Aux DEUX BOUTS, l'infobulle s'aligne sur le bord au lieu d'être centrée.
+   Centrée, celle du jour même — le segment le plus à droite, et le plus
+   susceptible d'être survolé — dépassait de la fenêtre et se faisait
+   couper net. Douze segments de marge de chaque côté couvrent la largeur
+   d'une bulle aux libellés les plus longs. */
+.seg:nth-child(-n+12):hover::after{left:0;transform:none}
+.seg:nth-last-child(-n+12):hover::after{left:auto;right:0;transform:none}
+@media (prefers-color-scheme:dark){
+  .seg:hover::after{background:oklch(0.28 0.01 265)}}
+.carte-pied{display:flex;justify-content:space-between;align-items:center;
+  gap:12px;margin-top:9px;font-size:11.5px;color:var(--texte-3)}
+.mesure{color:var(--texte-3);text-align:center}
+.mesure b{font-weight:600;color:var(--texte-2);font-variant-numeric:tabular-nums}
+/* Le nombre de jours réellement mesurés qualifie le pourcentage : « 100 % »
+   sur un seul jour ne vaut pas « 100 % » sur quatre-vingt-dix. Il sort sur
+   mobile, où la ligne n'a pas la place — pas la garde d'honnêteté qui
+   compte le plus, mais celle qu'on peut se permettre de perdre. */
+.sur{font-style:normal;opacity:.8}
+
+/* ── Pied ────────────────────────────────────────────────── */
+/* Une seule ligne, centrée, discrète — comme la font toutes les pages de
+   statut qu'on regarde sans y penser. Les deux phrases qui étaient là
+   expliquaient le montage technique à des gens venus vérifier si leur
+   site répond ; personne ne lit ça. Ce qui reste tient dans le survol. */
+.pied{margin-top:38px;padding:24px 0 52px;border-top:1px solid var(--filet);
+  display:flex;justify-content:center}
+.propulse{display:inline-flex;align-items:center;gap:7px;
+  color:var(--texte-3);font-size:12.5px;text-decoration:none;
+  transition:color .18s ease}
+.propulse:hover{color:var(--texte-2)}
+.propulse .symbole{width:15px;height:15px;background:currentColor}
+.propulse b{font-weight:600;font-family:var(--titre);
+  font-variation-settings:"opsz" 14;letter-spacing:-.02em}
+.propulse em{font-style:normal;opacity:.72}
+:focus-visible{outline:2px solid var(--marque);outline-offset:3px;border-radius:4px}
+/* L'étiquette de gauche a deux versions : la période affichée change avec
+   la largeur, donc le libellé doit changer avec elle. Écrire « il y a 90
+   jours » sous trente barres serait un mensonge de plus. */
+.quand-court{display:none}
+
+@media (max-width:640px){
+  .enveloppe{padding:0 16px}
+  .entete-corps{height:56px}
+  .bandeau{padding:38px 0 30px}
+
+  /* Les soixante plus anciens sortent : il reste les trente derniers.
+     Masqués et non supprimés — « display:none » les retire aussi de l'arbre
+     d'accessibilité, donc un lecteur d'écran annonce ce qui est montré. */
+  .seg:nth-child(-n+60){display:none}
+  .quand-long{display:none}
+  .quand-court{display:inline}
+  /* L'ancrage de l'infobulle suit : le premier segment VISIBLE n'est plus
+     l'enfant 1 mais l'enfant 61. Sans ça, les bulles du bord gauche
+     restaient centrées et sortaient de l'écran. */
+  .seg:nth-child(-n+72):hover::after{
+    left:0;transform:none}
+
+  .sur{display:none}
+  /* Les bornes ne se coupent jamais en deux lignes : « il y a 30 / jours »
+     casse la lecture de la frise plus sûrement qu'un corps plus petit. */
+  .carte-pied{font-size:11px;gap:8px}
+  .carte-pied>span:first-child,.carte-pied>span:last-child{white-space:nowrap}
+  .carte{padding:16px 16px 13px}
+  .carte-tete{flex-direction:column;gap:9px}
+  .carte-chiffres{text-align:left;display:flex;gap:11px;align-items:baseline}
+  .barres{height:30px}
+  .pied{padding:22px 0 40px}
+}
+
+/* Sous 360 px, « Statut » passe à la trappe : le symbole, le nom et le
+   bouton d'assistance doivent tenir sur une ligne, et c'est le mot le
+   moins utile des trois — le titre de l'onglet le dit déjà. */
+@media (max-width:359px){
+  .verrou b{display:none}
+  /* Le chiffre suffit ; « de disponibilité » est deviné par la frise. */
+  .mot-dispo{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="entete">
+  <div class="enveloppe entete-corps">
+    <a class="marque" href="https://www.webcosa.com">
+      <span class="symbole" aria-hidden></span>
+      <span class="verrou">Webcosa <b>Statut</b></span>
+    </a>
+    <a class="bouton-aide" href="https://www.webcosa.com/contact">Assistance</a>
+  </div>
+</header>
+
+<main class="enveloppe">
+  <section class="bandeau">
+    <h1>Tous les services sont <em>opérationnels</em></h1>
+    <p class="vivant"><span class="point" aria-hidden></span>
+      Dernière mesure <time id="fraicheur" datetime="2026-08-07T23:33:18.775Z">à 01:33</time></p>
+  </section>
+
+  <section class="famille">
+      <h2 class="famille-titre">La plateforme</h2>
+      <div class="services">
+    <article class="carte" data-slug="espace-client">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Espace client</h3>
+            <a class="lien-service" href="https://cms.webcosa.com" rel="noreferrer">cms.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">874 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article>
+
+    <article class="carte" data-slug="base-de-donnees">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Base de données</h3>
+            <a class="lien-service" href="https://cms.webcosa.com/api/sante?c=base" rel="noreferrer">cms.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">802 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article>
+
+    <article class="carte" data-slug="connexion">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Connexion</h3>
+            <a class="lien-service" href="https://cms.webcosa.com/api/sante?c=connexion" rel="noreferrer">cms.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">269 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article>
+
+    <article class="carte" data-slug="rendu-des-sites">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Rendu des sites</h3>
+            <a class="lien-service" href="https://cms.webcosa.com/api/sante?c=rendu" rel="noreferrer">cms.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">341 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article>
+
+    <article class="carte" data-slug="sites-clients">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Sites clients</h3>
+            <a class="lien-service" href="https://cms.webcosa.com/api/sante?c=site" rel="noreferrer">cms.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">227 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article>
+
+    <article class="carte" data-slug="ecran-de-connexion">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Écran de connexion</h3>
+            <a class="lien-service" href="https://cms.webcosa.com/api/sante?c=ecran" rel="noreferrer">cms.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">427 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article></div>
+    </section>
+<section class="famille">
+      <h2 class="famille-titre">Nos sites</h2>
+      <div class="services">
+    <article class="carte" data-slug="site-vitrine">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Site vitrine</h3>
+            <a class="lien-service" href="https://www.webcosa.com" rel="noreferrer">www.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">519 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article>
+
+    <article class="carte" data-slug="documentation">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Documentation</h3>
+            <a class="lien-service" href="https://dev.webcosa.com" rel="noreferrer">dev.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">546 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article>
+
+    <article class="carte" data-slug="store">
+      <header class="carte-tete">
+        <div class="carte-titre">
+          <span class="pastille pastille--haut" aria-hidden></span>
+          <div>
+            <h3>Store</h3>
+            <a class="lien-service" href="https://store.webcosa.com" rel="noreferrer">store.webcosa.com</a>
+          </div>
+        </div>
+        <div class="carte-chiffres">
+          <span class="dispo dispo--haut">Opérationnel</span>
+          <span class="latence">669 ms</span>
+        </div>
+      </header>
+
+      <div class="barres" role="img" aria-label="Disponibilité sur 90 jours : 100.00%"><i class="seg seg--vide" data-info="11 mai · pas encore de données"></i><i class="seg seg--vide" data-info="12 mai · pas encore de données"></i><i class="seg seg--vide" data-info="13 mai · pas encore de données"></i><i class="seg seg--vide" data-info="14 mai · pas encore de données"></i><i class="seg seg--vide" data-info="15 mai · pas encore de données"></i><i class="seg seg--vide" data-info="16 mai · pas encore de données"></i><i class="seg seg--vide" data-info="17 mai · pas encore de données"></i><i class="seg seg--vide" data-info="18 mai · pas encore de données"></i><i class="seg seg--vide" data-info="19 mai · pas encore de données"></i><i class="seg seg--vide" data-info="20 mai · pas encore de données"></i><i class="seg seg--vide" data-info="21 mai · pas encore de données"></i><i class="seg seg--vide" data-info="22 mai · pas encore de données"></i><i class="seg seg--vide" data-info="23 mai · pas encore de données"></i><i class="seg seg--vide" data-info="24 mai · pas encore de données"></i><i class="seg seg--vide" data-info="25 mai · pas encore de données"></i><i class="seg seg--vide" data-info="26 mai · pas encore de données"></i><i class="seg seg--vide" data-info="27 mai · pas encore de données"></i><i class="seg seg--vide" data-info="28 mai · pas encore de données"></i><i class="seg seg--vide" data-info="29 mai · pas encore de données"></i><i class="seg seg--vide" data-info="30 mai · pas encore de données"></i><i class="seg seg--vide" data-info="31 mai · pas encore de données"></i><i class="seg seg--vide" data-info="1 juin · pas encore de données"></i><i class="seg seg--vide" data-info="2 juin · pas encore de données"></i><i class="seg seg--vide" data-info="3 juin · pas encore de données"></i><i class="seg seg--vide" data-info="4 juin · pas encore de données"></i><i class="seg seg--vide" data-info="5 juin · pas encore de données"></i><i class="seg seg--vide" data-info="6 juin · pas encore de données"></i><i class="seg seg--vide" data-info="7 juin · pas encore de données"></i><i class="seg seg--vide" data-info="8 juin · pas encore de données"></i><i class="seg seg--vide" data-info="9 juin · pas encore de données"></i><i class="seg seg--vide" data-info="10 juin · pas encore de données"></i><i class="seg seg--vide" data-info="11 juin · pas encore de données"></i><i class="seg seg--vide" data-info="12 juin · pas encore de données"></i><i class="seg seg--vide" data-info="13 juin · pas encore de données"></i><i class="seg seg--vide" data-info="14 juin · pas encore de données"></i><i class="seg seg--vide" data-info="15 juin · pas encore de données"></i><i class="seg seg--vide" data-info="16 juin · pas encore de données"></i><i class="seg seg--vide" data-info="17 juin · pas encore de données"></i><i class="seg seg--vide" data-info="18 juin · pas encore de données"></i><i class="seg seg--vide" data-info="19 juin · pas encore de données"></i><i class="seg seg--vide" data-info="20 juin · pas encore de données"></i><i class="seg seg--vide" data-info="21 juin · pas encore de données"></i><i class="seg seg--vide" data-info="22 juin · pas encore de données"></i><i class="seg seg--vide" data-info="23 juin · pas encore de données"></i><i class="seg seg--vide" data-info="24 juin · pas encore de données"></i><i class="seg seg--vide" data-info="25 juin · pas encore de données"></i><i class="seg seg--vide" data-info="26 juin · pas encore de données"></i><i class="seg seg--vide" data-info="27 juin · pas encore de données"></i><i class="seg seg--vide" data-info="28 juin · pas encore de données"></i><i class="seg seg--vide" data-info="29 juin · pas encore de données"></i><i class="seg seg--vide" data-info="30 juin · pas encore de données"></i><i class="seg seg--vide" data-info="1 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="2 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="3 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="4 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="5 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="6 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="7 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="8 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="9 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="10 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="11 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="12 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="13 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="14 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="15 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="16 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="17 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="18 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="19 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="20 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="21 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="22 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="23 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="24 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="25 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="26 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="27 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="28 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="29 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="30 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="31 juillet · pas encore de données"></i><i class="seg seg--vide" data-info="1 août · pas encore de données"></i><i class="seg seg--vide" data-info="2 août · pas encore de données"></i><i class="seg seg--vide" data-info="3 août · pas encore de données"></i><i class="seg seg--vide" data-info="4 août · pas encore de données"></i><i class="seg seg--vide" data-info="5 août · pas encore de données"></i><i class="seg seg--haut" data-info="6 août · aucune interruption"></i><i class="seg seg--haut" data-info="7 août · aucune interruption"></i><i class="seg seg--haut" data-info="8 août · aucune interruption"></i></div>
+
+      <footer class="carte-pied">
+        <span><span class="quand-long">il y a 90 jours</span><span class="quand-court">il y a 30 jours</span></span>
+        <span class="mesure"><b>100 %</b><span class="mot-dispo"> de disponibilité</span><em class="sur"> · 3 jours mesurés</em></span>
+        <!-- La DATE du dernier segment, et non le mot « aujourd'hui ».
+             Ce mot était écrit en dur dans un fichier statique : le jour
+             où la reconstruction n'a pas lieu — cron non déclenché,
+             déploiement Pages bloqué, les deux sont arrivés — la page
+             affiche « aujourd'hui » sous la barre de la veille. Une page
+             de statut qui se trompe de jour ne vaut plus rien.
+             Le script remet « aujourd'hui » dès qu'il a recalculé les
+             barres, ce qui est alors vrai. Sans JavaScript, la date
+             reste juste. Aucune branche ne ment. -->
+        <span class="quand-fin">8 août</span>
+      </footer>
+    </article></div>
+    </section>
+
+  <section class="famille"><h2 class="famille-titre">Incidents</h2><div class="incidents"><p class="rien">Aucune interruption depuis le début de la surveillance, le 6 août.</p></div></section>
+
+  <footer class="pied">
+    <a class="propulse" href="https://www.webcosa.com"
+       title="Cette page est hébergée en dehors de l'infrastructure Webcosa : elle reste accessible même pendant une panne.">
+      Propulsé par <span class="symbole" aria-hidden></span><b>Webcosa</b>
+      <em>· hors infrastructure</em>
+    </a>
+  </footer>
+</main>
+
+<script>
+/* La fraîcheur en clair — « il y a 4 minutes » plutôt qu'une heure que le
+   lecteur doit soustraire lui-même.
+
+   Elle est calculée CHEZ LE VISITEUR, et c'est le seul moyen qu'elle
+   reste vraie : la page est un fichier statique servi par un CDN, donc
+   une durée écrite à la construction vieillit avec elle. L'horodatage
+   absolu est écrit dans le HTML et reste affiché si le script ne tourne
+   pas — on ne perd rien, on gagne juste la lecture directe.
+
+   Et rien ici ne PROMET une cadence. Le cron d'Upptime demande une mesure
+   toutes les cinq minutes, mais l'ordonnanceur de GitHub est « au mieux »
+   et peut prendre des heures à démarrer sur un dépôt neuf. Afficher
+   « vérifié toutes les 5 minutes » serait donc une affirmation que la
+   page ne peut pas tenir — sur une page de statut, l'écart entre ce qui
+   est promis et ce qui est fait est précisément ce qui la discrédite.
+   Le chiffre affiché, lui, est mesuré et se corrige tout seul. */
+(function () {
+  var t = document.getElementById("fraicheur");
+  if (!t) return;
+  var quand = new Date(t.getAttribute("datetime"));
+  if (isNaN(quand)) return;
+
+  function ecrire() {
+    var min = Math.round((Date.now() - quand) / 60000);
+    t.textContent =
+      min < 1 ? "à l'instant"
+      : min === 1 ? "il y a 1 minute"
+      : min < 60 ? "il y a " + min + " minutes"
+      : min < 120 ? "il y a 1 heure"
+      : min < 1440 ? "il y a " + Math.round(min / 60) + " heures"
+      : "il y a plus d'un jour";
+  }
+  ecrire();
+  setInterval(ecrire, 30000);
+  /* Rejoué quand le rafraîchissement réseau pose une date plus
+     récente — sinon l'écran garderait la fraîcheur du build. */
+  t.addEventListener("maj", function () {
+    quand = new Date(t.getAttribute("datetime"));
+    ecrire();
+  });
+})();
+
+/* ── Relire les mesures sans reconstruire la page ────────────────────────
+   La page est un fichier statique reconstruit une fois par nuit. Sans ce
+   bloc, elle afficherait des chiffres vieux de quelques heures — sur une
+   page de statut, c'est la seule chose qu'on ne peut pas se permettre.
+
+   Elle relit donc « summary.json » à chaque ouverture. Tout est écrit en
+   dur AUSSI dans le HTML : si le réseau refuse, si GitHub répond mal, si
+   le script ne tourne pas, la page reste juste et complète — elle est
+   simplement datée. Aucune branche ne peut la laisser vide.
+
+   ── Les barres AUSSI, et l'ancienne raison de ne pas le faire était
+   fausse ──────────────────────────────────────────────────────────────
+   Il était écrit ici que les redessiner « doublerait la logique de
+   barres() pour un gain nul », au motif qu'elles décrivent des jours
+   entiers et que la reconstruction nocturne suffit.
+
+   La prémisse cachée était que la reconstruction A LIEU. Le 7 août, elle
+   n'avait pas eu lieu : le cron de 4 h 17 n'a pas été déclenché — sur ce
+   dépôt l'ordonnanceur de GitHub tourne à une à trois heures d'intervalle
+   au lieu des cinq minutes demandées — et le déploiement Pages était
+   bloqué en « building » depuis quatorze heures. La page affichait donc
+   « aujourd'hui » sous la barre du 6.
+
+   Le gain n'était pas nul : il vaut la différence entre une page juste et
+   une page qui se trompe de jour. Et « summary.json » porte
+   « dailyMinutesDown », c'est-à-dire exactement la donnée des barres :
+   tout ce qu'il fallait était déjà téléchargé.
+
+   Les barres se recalculent donc ici, à chaque ouverture, avec la date du
+   VISITEUR. La reconstruction nocturne redevient ce qu'elle aurait
+   toujours dû être — un confort, pas une condition de justesse. */
+(function () {
+  var SOURCE = "https://raw.githubusercontent.com/Webcosa/status-page/master/history";
+  var MOTS = { up: "Opérationnel", degraded: "Dégradé", down: "Indisponible" };
+
+  /* Les trois constantes qui manquaient au navigateur pour refaire le
+     calcul du build. « DEBUT » est la première mesure jamais enregistrée :
+     une date passée, définitivement figée, donc sans risque de péremption
+     — contrairement à tout le reste de cette page. */
+  var DEBUT = new Date("2026-08-06T14:20:42.219Z");
+  var JOURS = 90;
+  var LIBELLES = {
+    haut: "aucune interruption",
+    degrade: "interruption courte",
+    bas: "indisponible",
+    vide: "pas encore de données",
+  };
+
+  var dateFr = new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    timeZone: "Europe/Paris",
+  });
+
+  /* Le jumeau exact de « barres() » côté build. Les deux doivent rester
+     d'accord : mêmes seuils — une minute pour « dégradé », soixante pour
+     « indisponible » —, et surtout la même règle sur les jours d'AVANT la
+     première mesure. Un jour sans mesure n'est pas un jour sans panne :
+     il s'affiche en trait fin, jamais en vert. */
+  function calculer(service) {
+    var bas = service.dailyMinutesDown || {};
+    var out = [];
+    var auj = new Date();
+    for (var i = JOURS - 1; i >= 0; i--) {
+      var d = new Date(auj);
+      d.setUTCDate(d.getUTCDate() - i);
+      var cle = d.toISOString().slice(0, 10);
+      if (new Date(cle + "T23:59:59Z") < DEBUT) {
+        out.push({ cle: cle, etat: "vide" });
+        continue;
+      }
+      var min = bas[cle] || 0;
+      out.push({ cle: cle, etat: min >= 60 ? "bas" : min >= 1 ? "degrade" : "haut" });
+    }
+    return out;
+  }
+
+  function redessiner(carte, service) {
+    var jours = calculer(service);
+
+    var zone = carte.querySelector(".barres");
+    if (zone) {
+      var html = "";
+      for (var i = 0; i < jours.length; i++) {
+        var j = jours[i];
+        var info = dateFr.format(new Date(j.cle)) + " · " + LIBELLES[j.etat];
+        html +=
+          '<i class="seg seg--' + j.etat + '" data-info="' +
+          info.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;") +
+          '"></i>';
+      }
+      zone.innerHTML = html;
+    }
+
+    // Le nombre de jours réellement observés — il grandit d'un par jour,
+    // et resterait figé si seul le build le calculait.
+    var mesures = 0;
+    for (var k = 0; k < jours.length; k++) if (jours[k].etat !== "vide") mesures++;
+    var sur = carte.querySelector(".mesure .sur");
+    if (sur) {
+      sur.textContent =
+        " · " +
+        (mesures === 0 ? "aucun jour mesuré"
+         : mesures === 1 ? "1 jour mesuré"
+         : mesures + " jours mesurés");
+    }
+
+    // Le dernier segment est celui d'aujourd'hui — maintenant qu'on vient
+    // de le calculer avec l'horloge du visiteur, le mot est exact.
+    var fin = carte.querySelector(".quand-fin");
+    if (fin) fin.textContent = "aujourd'hui";
+  }
+
+  function pourcent(brut) {
+    var n = parseFloat(String(brut));
+    if (!isFinite(n)) return String(brut);
+    var c = Number.isInteger(n) ? String(n) : n.toFixed(2).replace(".", ",");
+    return c + " %";
+  }
+
+  fetch(SOURCE + "/summary.json", { cache: "no-cache" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function (services) {
+      if (!Array.isArray(services) || !services.length) return;
+      var tousBons = true;
+
+      services.forEach(function (s) {
+        var carte = document.querySelector('[data-slug="' + s.slug + '"]');
+        if (!carte) return;
+        var bon = s.status === "up";
+        if (!bon) tousBons = false;
+
+        var etat = carte.querySelector(".dispo");
+        if (etat) {
+          etat.textContent = MOTS[s.status] || "Inconnu";
+          etat.className = "dispo dispo--" + (bon ? "haut" : "bas");
+        }
+        var pastille = carte.querySelector(".pastille");
+        if (pastille) pastille.className = "pastille pastille--" + (bon ? "haut" : "bas");
+        var lat = carte.querySelector(".latence");
+        if (lat && typeof s.time === "number") lat.textContent = s.time + " ms";
+        var taux = carte.querySelector(".mesure b");
+        if (taux) taux.textContent = pourcent(s.uptime);
+
+        // Enveloppé : une barre qui refuse de se redessiner ne doit pas
+        // empêcher les six autres cartes de se mettre à jour.
+        try { redessiner(carte, s); } catch (e) {}
+      });
+
+      var h1 = document.querySelector(".bandeau h1");
+      if (h1) {
+        h1.innerHTML = tousBons
+          ? "Tous les services sont <em>opérationnels</em>"
+          : services.every(function (s) { return s.status !== "up"; })
+            ? "Une <em>panne</em> est en cours"
+            : "Un service est <em>perturbé</em>";
+      }
+
+      /* La fraîcheur ne peut PAS venir des fichiers de mesure.
+         Upptime journalise « Skipping commit, status is up » : il n'écrit
+         dans history/ que si l'état CHANGE. Son lastUpdated répond donc à
+         « depuis quand est-ce dans cet état », pas à « quand a-t-on
+         regardé » — et l'afficher comme une heure de mesure annonçait
+         « il y a 3 heures » sur un contrôle passé vingt minutes plus tôt.
+         Exactement le genre d'écart qui fait douter d'une page entière.
+
+         La seule source qui réponde à la vraie question est la date de la
+         dernière exécution réussie de la sonde. Non authentifiée, l'API
+         de GitHub plafonne à 60 appels par heure et par IP ; c'est sans
+         rapport avec le trafic d'une page de statut, et un dépassement
+         retombe simplement sur l'horodatage écrit en dur. */
+      return fetch(
+        "https://api.github.com/repos/Webcosa/status-page/actions/workflows/uptime.yml/runs?status=success&per_page=1"
+      )
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+        .then(function (d) {
+          var run = d && d.workflow_runs && d.workflow_runs[0];
+          var t = document.getElementById("fraicheur");
+          if (run && t && !isNaN(new Date(run.updated_at))) {
+            t.setAttribute("datetime", new Date(run.updated_at).toISOString());
+            t.dispatchEvent(new Event("maj"));
+          }
+        });
+    })
+    .catch(function () { /* Le HTML écrit en dur fait foi. */ });
+})();
+</script>
+
+</body>
+</html>
