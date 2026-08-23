@@ -1,7 +1,7 @@
 url: https://cms.webcosa.com/api/sante?c=connexion
-status: down
-code: 503
-responseTime: 4261
-lastUpdated: 2026-08-23T05:00:03.171Z
+status: up
+code: 200
+responseTime: 286
+lastUpdated: 2026-08-23T05:38:28.292Z
 startTime: 2026-08-06T14:20:45.744Z
 generator: Upptime <https://github.com/upptime/upptime>
