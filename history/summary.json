@@ -40,18 +40,20 @@
     "url": "https://cms.webcosa.com/api/sante?c=connexion",
     "icon": "https://icons.duckduckgo.com/ip3/cms.webcosa.com.ico",
     "slug": "connexion",
-    "status": "up",
+    "status": "down",
     "uptime": "100.00%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "100.00%",
-    "time": 275,
-    "timeDay": 332,
-    "timeWeek": 280,
-    "timeMonth": 275,
-    "timeYear": 275,
-    "dailyMinutesDown": {}
+    "time": 485,
+    "timeDay": 2297,
+    "timeWeek": 778,
+    "timeMonth": 485,
+    "timeYear": 485,
+    "dailyMinutesDown": {
+      "2026-08-23": 0
+    }
   },
   {
     "name": "Rendu des sites",
