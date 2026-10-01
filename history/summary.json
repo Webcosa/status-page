@@ -80,19 +80,20 @@
     "url": "https://cms.webcosa.com/api/sante?c=site",
     "icon": "https://icons.duckduckgo.com/ip3/cms.webcosa.com.ico",
     "slug": "sites-clients",
-    "status": "up",
+    "status": "down",
     "uptime": "99.93%",
-    "uptimeDay": "100.00%",
+    "uptimeDay": "99.99%",
     "uptimeWeek": "100.00%",
     "uptimeMonth": "100.00%",
     "uptimeYear": "99.93%",
-    "time": 235,
-    "timeDay": 192,
-    "timeWeek": 217,
-    "timeMonth": 222,
-    "timeYear": 235,
+    "time": 238,
+    "timeDay": 281,
+    "timeWeek": 236,
+    "timeMonth": 226,
+    "timeYear": 238,
     "dailyMinutesDown": {
-      "2026-08-26": 55
+      "2026-08-26": 55,
+      "2026-10-01": 0
     }
   },
   {
